@@ -1,31 +1,27 @@
-/**
- * Created by lena on 20.03.15.
- */
 var express = require('express');
+var http = require ('http');  // подгрузить соответс.модуль
+
 var app = express();
-var loger = require('morgan');
 
-app.use(muCustomSteck);
-app.use(loger('dev'));
+var httpServer = http.createServer(app);
 
-function muCustomSteck(req, res, next){
-    console.log(reg.headers['user-agent']);
-    var pos = (req.ip).lastIndexOf(':');
-    var s = (reg.ip).substr(pos+1);
-    console.log(s);
-    var acceptedIps = ['192.168.88.43'];
-    if(s === acceptedIps[i]){
-        next()
-    }
-    else {
-        next('Access denied');
-    }
-}
+require('./routes/index')(app);
 
-require('./routers/index.js'); //(app)
-
-
-app.listen(3030, function(){
-    console.log('---------Express start success-----------');
+app.get('/',function(reg, res, next){
+    res.status(200).json({succes:"-------etajhaetj----"});
 });
+
+app.post('/',function(reg, res, next){
+    res.status(200).json({succes:"-------POST----"});
+});
+
+app.use('/test',function(reg, res, next){
+    res.status(200).send({succes:"-------TEST----"});
+});
+
+
+app.listen(3000,function(){//прослуховувати на певному порті
+        console.log("--------firstsdh--------")
+    }
+);
 
