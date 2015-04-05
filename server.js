@@ -1,49 +1,31 @@
-var http = require("http");
-var server = new http.Server();
+/**
+ * Created by lena on 20.03.15.
+ */
+var express = require('express');
+var app = express();
+var loger = require('morgan');
 
-//
-//function onRequest(req, res) {
-//    var a = "yrlkstyks";
-//    console.log("Request received.");
-//    res.write("Hello World");
-//    res.write(a);
-//    res.end();
-//}
+app.use(muCustomSteck);
+app.use(loger('dev'));
 
-//var server = new http.Server(function(req, res){
-//    var urlParsed = url.parse(reg.url, true);
-//
-//    if(urlParsed.pathname == "/echo" && urlParsed.query.message){
-//        res.end(urlParsed.query.message);
-//    } else {
-//        res.statusCode = 404;
-//        res.end("page not found");
-//    }
-//    // console.log(reg.method, reg.url);
-//    //res.end();
-//});
+function muCustomSteck(req, res, next){
+    console.log(reg.headers['user-agent']);
+    var pos = (req.ip).lastIndexOf(':');
+    var s = (reg.ip).substr(pos+1);
+    console.log(s);
+    var acceptedIps = ['192.168.88.43'];
+    if(s === acceptedIps[i]){
+        next()
+    }
+    else {
+        next('Access denied');
+    }
+}
 
-
-http.createServer(onRequest).listen(8888);
-console.log("Server has started.");
+require('./routers/index.js'); //(app)
 
 
-
-var user = require("./index");
-
-
-var blue = new user.Mario_Blue('Синій', 1, 10);
-var red = new user.Mario_Red('Червоний');
-
-
-blue.walk(3)
-console.log(blue)
-blue.fly(20)
-console.log(blue)
-
-blue.run(10);
-red.run(20);
-console.log('--------------------');
-console.dir(red);
-console.dir(blue);
+app.listen(3030, function(){
+    console.log('---------Express start success-----------');
+});
 
